@@ -177,4 +177,4 @@ def main(page: Page):
     # add application's root control to the page
     page.add(app)
 
-ft.app(target=main, view=ft.WEB_BROWSER)
+ft.app(target=main, view=None)
