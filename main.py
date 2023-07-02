@@ -95,10 +95,10 @@ class TodoApp(UserControl):
         self.filter = Tabs(
             selected_index=0,
             on_change=self.tabs_changed,
-            tabs=[Tab(text="all"), Tab(text="active"), Tab(text="completed")],
+            tabs=[Tab(text="todos"), Tab(text="ativos"), Tab(text="completos")],
         )
 
-        self.items_left = ft.Text("0 items left")
+        self.items_left = ft.Text("0 tarefas a fazer")
 
         return ft.Column(
             width=600,
@@ -121,7 +121,7 @@ class TodoApp(UserControl):
                             controls=[
                                 self.items_left,
                                 ft.OutlinedButton(
-                                    text="Clear completed", on_click=self.clear_clicked
+                                    text="Limpar completos", on_click=self.clear_clicked
                                 ),
                             ],
                         ),
@@ -153,13 +153,13 @@ class TodoApp(UserControl):
         count = 0
         for task in self.tasks.controls:
             task.visible = (
-                status == "all"
-                or (status == "active" and task.completed == False)
-                or (status == "completed" and task.completed)
+                status == "todos"
+                or (status == "ativos" and task.completed == False)
+                or (status == "completos" and task.completed)
             )
             if not task.completed:
                 count += 1
-        self.items_left.value = f"{count} active item(s) left"
+        self.items_left.value = f"{count} itens ativos"
         super().update()
 
     def tabs_changed(self, e):
@@ -177,4 +177,4 @@ def main(page: Page):
     # add application's root control to the page
     page.add(app)
 
-ft.app(target=main, view=None)
+ft.app(target=main, view=ft.WEB_BROWSER)
